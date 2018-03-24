@@ -1,19 +1,12 @@
 #!/bin/bash
 
-if [ -n ${AWS_REGION} ]; then
-	
-	cat > /etc/awslogs/awscli.conf <<EOF
+cat > /etc/awslogs/awscli.conf <<EOF
 [plugins]
 cwlogs = cwlogs
 [default]
 region = ${AWS_REGION}
 EOF
 
-
-else
-	echo 'ERROR: AWS_REGION variable env need'
-	exit 1;
-fi
 if [ "$USE_ENV" != "false" ]; then
 	if [ -n "$LOGFILE" ] && [ -n "$LOGSTREAM" ] && [ -n "$GROUPNAME" ] && [ -n "$DURATION" ] && [ -n "$LOGFORMAT" ]; then
 
