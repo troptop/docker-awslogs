@@ -36,9 +36,9 @@ EOF
 	fi
 
 fi
-	
-if [ -n "$AWS_REGION" ] && [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]; then
-	cat > /etc/awslogs/awscli.conf <<EOF
+if [ "$OTHER_AWS_ID" != "false" ]; then
+	if [ -n "$AWS_REGION" ] && [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]; then
+		cat > /etc/awslogs/awscli.conf <<EOF
 [plugins]
 cwlogs = cwlogs
 [default]
@@ -46,14 +46,15 @@ region = ${AWS_REGION}
 aws_access_key_id = ${AWS_ACCESS_KEY_ID}
 aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
 EOF
-else
-                echo 'INFO: If you want to use a new AWS USER ID , the following variable env has been set'
+	else
+                echo 'ERROR: to use a new AWS USER ID , the following variable env has been set'
                 echo 'Please check if you have the following ENV setup :
                 - --env AWS_REGION
                 - --env AWS_ACCESS_KEY_ID
-                - --env AWS_SECRET_ACCESS_KEY'
-	
-
+                - --env AWS_SECRET_ACCESS_KEY
+		- --env OTHER_AWS_ID'
+		exit 1
+	fi
 fi
 
 

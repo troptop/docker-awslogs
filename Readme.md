@@ -32,7 +32,7 @@ docker run -d --name=awslog -e AWS_REGION=eu-west-1 -e LOGFILE=/var/log/apache.l
 - `LOGSTREAM`=  the destination log stream
 - `GROUPNAME`=  the destination log group
 
-You can choose another user :
+- `OTHER_AWS_ID`= To use another aws user, you have to set the following Variable (with cloudwatch log write permission (default value :false)
 - `AWS_ACCESS KEY_ID`=  AWS USER ID
 - `AWS_SECRET_ACCESS_KEY`=  AWS USER Password
 
