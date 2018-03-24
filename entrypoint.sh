@@ -1,10 +1,7 @@
 #!/bin/bash
 cat > /etc/awslogs/awslogs.conf <<EOF
 [general]
-# Path to the CloudWatch Logs agent's state file. The agent uses this file to maintain
-# client side state across its executions.
 state_file = /var/vcap/sys/log/awslogs/agent-state
-logging_config_file = /var/vcap/jobs/awslogs/config/logging.conf
 EOF
 cat > /etc/awslogs/awscli.conf <<EOF
 [plugins]
