@@ -1,16 +1,31 @@
 #!/bin/bash
-cat > /etc/awslogs/awslogs.conf <<EOF
-[general]
-state_file = /var/lib/awslogs/agent-state
+
+
+if [ "$AWSCLI_ENV" != "false" ]; then
+	if [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]; then
+		cat > /etc/awslogs/awscli.conf <<EOF
+[plugins]
+cwlogs = cwlogs
+[default]
+region = ${AWS_REGION}
+aws_access_key_id = ${AWS_ACCESS_KEY_ID}
+aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
 EOF
+	else
 cat > /etc/awslogs/awscli.conf <<EOF
 [plugins]
 cwlogs = cwlogs
 [default]
 region = ${AWS_REGION}
 EOF
+	fi
+fi
 
-if [ "$USE_ENV" != "false" ]; then
+if [ "$AWSLOGS_ENV" != "false" ]; then
+cat > /etc/awslogs/awslogs.conf <<EOF
+[general]
+state_file = /var/lib/awslogs/agent-state
+EOF
 	if [ -n "$LOGFILE" ] && [ -n "$LOGSTREAM" ] && [ -n "$GROUPNAME" ] && [ -n "$DURATION" ] && [ -n "$LOGFORMAT" ]; then
 
 		cat >> /etc/awslogs/awslogs.conf <<EOF
@@ -32,29 +47,8 @@ EOF
 	        - --env DURATION
         	- --env LOGFORMAT
 	        - --env USE_ENV'
-		exit 1
 	fi
 
-fi
-if [ "$OTHER_AWS_ID" != "false" ]; then
-	if [ -n "$AWS_REGION" ] && [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]; then
-		cat > /etc/awslogs/awscli.conf <<EOF
-[plugins]
-cwlogs = cwlogs
-[default]
-region = ${AWS_REGION}
-aws_access_key_id = ${AWS_ACCESS_KEY_ID}
-aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
-EOF
-	else
-                echo 'ERROR: to use a new AWS USER ID , the following variable env has been set'
-                echo 'Please check if you have the following ENV setup :
-                - --env AWS_REGION
-                - --env AWS_ACCESS_KEY_ID
-                - --env AWS_SECRET_ACCESS_KEY
-		- --env OTHER_AWS_ID'
-		exit 1
-	fi
 fi
 
 
