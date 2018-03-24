@@ -47,13 +47,11 @@ aws_access_key_id = ${AWS_ACCESS_KEY_ID}
 aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
 EOF
 else
-                echo 'ERROR: OTHER_AWS_ID variable env has been set'
+                echo 'INFO: If you want to use a new AWS USER ID , the following variable env has been set'
                 echo 'Please check if you have the following ENV setup :
                 - --env AWS_REGION
                 - --env AWS_ACCESS_KEY_ID
-                - --env AWS_SECRET_ACCESS_KEY
-                - --env OTHER_AWS_ID'
-                exit 1
+                - --env AWS_SECRET_ACCESS_KEY'
 	
 
 fi
