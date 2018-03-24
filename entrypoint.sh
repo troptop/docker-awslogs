@@ -1,13 +1,13 @@
 #!/bin/bash
 
-cat >> /etc/awslogs/awscli.conf <<EOF
+cat > /etc/awslogs/awscli.conf <<EOF
 [plugins]
 cwlogs = cwlogs
 [default]
 region = ${REGION}
 EOF
 
-cat >> /etc/awslogs/awslogs.conf <<EOF
+cat > /etc/awslogs/awslogs.conf <<EOF
 [${LOGFILE}]
 datetime_format = ${LOGFORMAT}
 file = ${LOGFILE}
