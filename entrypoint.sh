@@ -16,7 +16,7 @@ EOF
 if [ "$USE_ENV" != "false" ]; then
 	if [ -n "$LOGFILE" ] && [ -n "$LOGSTREAM" ] && [ -n "$GROUPNAME" ] && [ -n "$DURATION" ] && [ -n "$LOGFORMAT" ]; then
 
-		cat > /etc/awslogs/awslogs.conf <<EOF
+		cat >> /etc/awslogs/awslogs.conf <<EOF
 [${LOGFILE}]
 datetime_format = ${LOGFORMAT}
 file = ${LOGFILE}
