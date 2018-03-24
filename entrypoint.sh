@@ -37,9 +37,8 @@ EOF
 
 fi
 	
-if [ "$OTHER_AWS_ID" != "false" ]; then
-	if [ -n "$AWS_REGION" ] && [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]; then
-		cat > /etc/awslogs/awscli.conf <<EOF
+if [ -n "$AWS_REGION" ] && [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]; then
+	cat > /etc/awslogs/awscli.conf <<EOF
 [plugins]
 cwlogs = cwlogs
 [default]
@@ -47,7 +46,7 @@ region = ${AWS_REGION}
 aws_access_key_id = ${AWS_ACCESS_KEY_ID}
 aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
 EOF
-	else
+else
                 echo 'ERROR: OTHER_AWS_ID variable env has been set'
                 echo 'Please check if you have the following ENV setup :
                 - --env AWS_REGION
@@ -57,7 +56,6 @@ EOF
                 exit 1
 	
 
-	fi
 fi
 
 
