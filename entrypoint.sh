@@ -1,7 +1,7 @@
 #!/bin/bash
 cat > /etc/awslogs/awslogs.conf <<EOF
 [general]
-state_file = /var/vcap/sys/log/awslogs/agent-state
+state_file = /var/lib/awslogs/agent-state
 EOF
 cat > /etc/awslogs/awscli.conf <<EOF
 [plugins]
