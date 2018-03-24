@@ -1,5 +1,7 @@
 FROM amazonlinux
-
+ENV USE_ENV "false"
+ENV OTHER_AWS_ID "false"
+ENV AWS_REGION "eu-west-1"
 
 RUN yum update -y && yum install -y \
 		awslogs \
