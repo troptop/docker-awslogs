@@ -4,11 +4,10 @@ ENV AWSCLI_ENV "false"
 ENV AWS_REGION = "us-east-1"
 RUN yum update -y && yum install -y \
 		awslogs python-pip \
-	&& yum clean all \
-	&& easy_install supervisor
+	&& yum clean all 
 
 RUN pip-2.6 install --upgrade pip
-RUN pip install supervisor-stdout
+RUN pip install supervisor supervisor-stdout
 COPY supervisord.conf /etc/supervisord.conf
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
